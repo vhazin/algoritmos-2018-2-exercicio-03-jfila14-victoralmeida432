@@ -8,26 +8,42 @@ Saída
 Seu programa deve imprimir uma linha contendo N − M inteiros com os identificadores das pessoas que permaneceram na fila, em ordem de chegada.
 
 Restrições
+
 • 1 ≤ N ≤ 50000
+
 • 1 ≤ M ≤ 50000 e M < N
+
 • Cada identificador está entre 1 e 100000
 
 Exemplos
 
 Entrada
+
 8
+
 5 100 9 81 70 33 2 1000
+
 3
+
 9 33 5
 
 Saída
+
 100 81 70 2 1000
 
+
+
 Entrada
+
 4
+
 10 9 6 3
+
 1
+
 3
 
+
 Saída
+
 10 9 6
