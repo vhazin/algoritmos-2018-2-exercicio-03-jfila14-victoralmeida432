@@ -2,25 +2,24 @@
 #include <stdlib.h>
 
 //Criando a estrutura de Lista
-typedef struct List{
-  //lista de números INTEIROS com um ponteiro apontando sempre pro próximo
+typedef struct list{
   int num;
-  struct List *next;
-}List;
+  struct list *next;
+}list;
 
-List *queue, *end;
+list *queue, *end;
 
 //Criando estrutura para adicionar elementos
 //precisei de ajuda dos amigos pois tive dificuldade em criar as estruturas
 //para adicionar e retirar (pedir ajuda à Erico.)
 
 void incluir(int num){
-  List *new,*aux;
+  list *new, *aux;
   //Adicionando um item à lista,alocando memoria para o mesmo no tamanho da lista
-  new = (List *)malloc(1 * sizeof(List));
+  new = (list *)malloc(1 * sizeof(list));
   new->num = num;
   new->next = NULL;
-  if(queue != NULL){
+  if(!queue){
     //Se a fila for inexistente,no caso,nula...esse item será o primeiro da fila, será o NOVO
     //e ainda sim ele vai ser o primeiro E o ultimo
     queue = new;
@@ -31,8 +30,9 @@ void incluir(int num){
     //Caso o número já exista na lista, Retornar um erro falando que o número já existe na fila
     //assumindo que nenhum identificador pode se repetir
     aux = end;
-    if(aux->num == num){
-      printf("Erro, O número Já existe! \n");
+    if(aux != NULL){
+      if(aux->num == num){
+      printf("Erro, O número Já existe!");
       return;
     }
   }
@@ -40,12 +40,12 @@ void incluir(int num){
   end = aux->next;
   return;
 }
-
+}
 //Criando a estrutura de Retirar itens da Lista.
 
 void excluir(int num)
 {
-  List *last, *aux;
+  list *last, *aux;
   last = queue;
   aux = NULL;
   //Enquanto ultimo não for vazio e ultimo não for o próprio número
@@ -77,13 +77,13 @@ void excluir(int num)
 //Criando um verificador pra checar se o ultimo é nulo e pular pro próximo ou não
 //meu código estava dando TLE por isso precisei de ajuda para criar essa Struct
 
-void checker(List *last){
+void checker(list *last){
   //apenas um IF fazendo o código buscar o ultimo ponteiro e verificar se ele é nulo
   //apontando esse ultimo ponteiro para o número se ele não for nulo
   //caso o ponteiro que aponte pro próximo seja diferente de Nulo, ele apontará para o próximo
 
   if(last != NULL){
-    printf("%d",last->num);
+    printf("%d ", last->num);
     if(last->next != NULL)
     checker(last->next);
   }
@@ -94,7 +94,7 @@ void ingresso(int b){
   int num;
   if (b < 2){
     scanf("%i",&num);
-    if(num <= 5000){
+    if(num <= 100000){
       incluir(num);
       return;
     }
@@ -103,7 +103,7 @@ void ingresso(int b){
   }
   else{
     scanf("%i", &num);
-    if(num <= 5000){
+    if(num <= 100000){
       incluir(num);
       b--;
       ingresso(b);
@@ -118,14 +118,22 @@ void ingresso(int b){
 void remover(int b){
   int num;
   if(b < 2){
-    scanf("%i",&num);
-    if(num <= 5000){
+    scanf("%i", &num);
+    if(num <= 100000){
+      excluir(num);
+      return;
+    }
+    printf("Erro,Valor muito alto, Repita a operação. \n");
+    exit(2);
+  }else{
+    scanf("%i", &num);
+    if(num <= 100000){
       excluir(num);
       b--;
       remover(b);
       return;
     }
-    printf("Erro,Valor muito alto, Repita a operação. \n");
+    printf("Erro,Valor muito alto Repita a operação. \n");
     exit(2);
   }
 }
@@ -154,13 +162,13 @@ int main(){
   
   b -= c;
   
-  List *last;
+  list *last;
   
   last = queue;
   
   checker(last);
   
-  printf("Digite o próximo valor \n");
+  printf("\n");
   
   free(queue);
   
